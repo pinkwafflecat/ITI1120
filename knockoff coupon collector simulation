@@ -1,0 +1,21 @@
+import random
+
+def coupon_collector():
+  ''' (none) -> none
+  Simulates picking cards from a shuffled deck. Cards are put back after every pick.
+  Prints the first card picked from each suit and the number of picks needed for 
+  at least one card from each suit is picked.'''
+  suitList=["Spades", "Hearts", "Clubs", "Diamonds"]
+  numberList=["Ace", "2", "3", "4", "5", "6", "7", "8", "9", "10", "Jack", "Queen", "King"]
+  pickCount=0
+  suitList2=[]
+  while True:
+    suit=random.choice(suitList)
+    number=random.choice(numberList)
+    pickCount+=1
+    if suit not in suitList2:
+      print(number+" of "+suit)
+      suitList2.append(suit)
+    if len(suitList2)==4:
+      break
+  print("Number of picks: ",pickCount)
