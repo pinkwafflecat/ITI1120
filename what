@@ -1,0 +1,45 @@
+from ast import Continue
+from prompt_toolkit.shortcuts.dialogs import yes_no_dialog
+
+import random
+
+def hangman_game():
+  '''(none) -> none
+  Fun game of hangman! Words are picked from a predetermined list and each letter
+  is first displayed as an asterisk. If a guess is correct, the letter will reveal
+  itself at its corresponding position. After the word is correctly guessed, the
+  word and amount of missed guesses are shown. Enter "y" to play again! :))'''
+  words = ["write", "program", "that", "receive", "positive", "change", "study", "excellent", "nice"]
+  cont="y"
+  while cont=="y":
+    word=random.choice(words)
+    s=''
+    for char in word:
+      s=s+'*' #displays the letters of the word as asterisks
+    guessList = [] #lists of all guesses
+    miss = 0 #number of times the user misses
+    while s != word and cont=="y":
+      remaining = ''
+      guess = input("Your word is "+s+". Please guess a letter: ")
+      guessList.append(guess)
+      if guessList.count(guess) > 1:
+        print("You already guessed "+guess+".")
+        continue
+      if guess in word:
+        for char in word:
+          charCounter=0
+          for guesses in guessList:
+            if guesses==char:
+              remaining=remaining+char #if a letter has been guessed, it will display as said letter
+              charCounter += 1
+              break
+          if charCounter == 0:
+            remaining = remaining+"*" #if the letter in the word has not been guessed, it will display as asterisk
+        s = remaining
+      else:
+        print(guess+" is not in the word.")
+        miss += 1 
+    miss=str(miss)
+    cont=input("The word is "+word+". You missed " + miss + " time(s). Do you want to continue? (y or n) ").strip()
+
+hangman_game()
